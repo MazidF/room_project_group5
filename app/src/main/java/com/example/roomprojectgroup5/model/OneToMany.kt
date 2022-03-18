@@ -5,7 +5,8 @@ import androidx.room.Relation
 
 data class InstructorWithCourses(
     @Embedded val instructor: Instructor,
-    @Relation(parentColumn = "instructor_number", entityColumn = "instructor_owner_number")
+    @Relation(parentColumn = "instructor_number"
+        , entityColumn = "instructor_owner_number")
     val courses: List<Course>
 )
 

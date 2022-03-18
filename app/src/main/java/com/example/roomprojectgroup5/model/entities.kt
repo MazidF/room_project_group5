@@ -7,14 +7,14 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "seat_table")
 data class Seat(
-    @PrimaryKey @ColumnInfo(name = "seat_number") val seatNo: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "seat_number") val seatNo: Int? = null,
     @ColumnInfo(name = "student_owner_id") val studentOwnerId : Int,
     @ColumnInfo(name = "seat_position") val position: Int,
 )
 
 @Entity(tableName = "student_table")
 data class Student(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "student_id") val id: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "student_id") val id: Int? = null,
     @ColumnInfo(name = "student_name") val name: String,
     @ColumnInfo(name = "student_address") val address: String,
 )
@@ -33,6 +33,7 @@ data class Course(
         childColumns = arrayOf("course_id")
     )])
 data class Clazz(
+    @PrimaryKey @ColumnInfo(name = "class_id") val id: Int,
     @ColumnInfo(name = "course_id") val courseId: Int,
     @ColumnInfo(name = "section_number") val sectionNumber: Int,
     @ColumnInfo(name = "num_registered") val registered: Int,
@@ -56,4 +57,11 @@ data class Instructor(
     @PrimaryKey @ColumnInfo(name = "instructor_number") val number:Int,
     @ColumnInfo(name = "instructor_name") val name: String,
     @ColumnInfo(name = "instructor_faculty") val faculty: String,
+)
+
+@Entity(tableName = "student_and_course",
+    primaryKeys = ["student_id", "course_id"])
+data class StudentCourseCrossRef(
+    @ColumnInfo(name = "student_id") val studentId: Int,
+    @ColumnInfo(name = "course_id") val courseId: Int
 )
